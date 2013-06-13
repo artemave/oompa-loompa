@@ -1,5 +1,4 @@
 require_relative 'twitter'
-require_relative 'good_to_tweet_check'
 
 class AccountStatusUpdater
 
@@ -8,8 +7,26 @@ class AccountStatusUpdater
   end
 
   def maybe_tweet_the_link link
-    if GoodToTweetCheck.perform @account, link
-      Twitter.tweet @account, link
+    return if score_too_low?(link)
+    return if source_does_not_match?(link)
+    return if already_tweeted?(link)
+
+    Twitter.tweet @account, link
+  end
+
+  private
+
+  def already_tweeted? link
+    @account.tweets.any? do |tweet|
+      tweet.link_url == link.url
     end
+  end
+
+  def score_too_low? link
+    link.score < @account.minimum_acceptable_score
+  end
+
+  def source_does_not_match? link
+    link.source != @account.source
   end
 end

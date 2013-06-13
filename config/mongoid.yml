@@ -1,0 +1,12 @@
+development:
+  sessions:
+    default:
+      database: oompa_development
+      hosts:
+        - localhost:27017
+test:
+  sessions:
+    default:
+      database: oompa_test
+      hosts:
+        - localhost:27017

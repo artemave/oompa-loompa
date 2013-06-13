@@ -1,33 +1,58 @@
+require_relative '../lib/models/account.rb'
+require_relative '../lib/models/link.rb'
+require_relative '../lib/models/tweet.rb'
 require_relative '../lib/account_status_updater.rb'
 require_relative 'spec_helper'
 
 describe AccountStatusUpdater do
-  let(:link) {double :link}
-  let(:account) {double :account}
+  let(:account) do
+    Account.create(username: 'HN150')
+  end
+  let(:link) do
+    Link.new source: 'HN',
+      score: 200,
+      title: 'beer is good',
+      url: 'http://beer_is_good.com'
+  end
 
-  let(:good_to_tweet_check) {fire_replaced_class_double 'GoodToTweetCheck'}
-  let(:twitter) {fire_replaced_class_double 'Twitter'}
+  let(:twitter) {class_double('Twitter').as_stubbed_const}
 
   subject { AccountStatusUpdater.new account }
 
-  context "link is NOT good enough to tweet" do
-    before do
-      good_to_tweet_check.stub(:perform).with(account, link).and_return(false)
+  context "Link source matches account" do
+    context "Link score is greater than account minimum acceptable score" do
+      context "Link has not been tweeted yet" do
+        it "tweets the link" do
+          twitter.should_receive(:tweet).with(account, link)
+          subject.maybe_tweet_the_link(link)
+        end
+      end
+
+      context "Link has already been tweeted" do
+        it "does not tweet the link" do
+          account.stub(:tweets).and_return([Tweet.new(link_url: 'http://beer_is_good.com')])
+
+          twitter.should_not_receive(:tweet)
+          subject.maybe_tweet_the_link(link)
+        end
+      end
     end
 
-    it "does not tweet the link" do
-      twitter.should_not_receive(:tweet)
-      subject.maybe_tweet_the_link(link)
+    context "Link score is lower than account minimum acceptable score" do
+      it "does not tweet the link" do
+        link.stub(:score).and_return(100)
+
+        twitter.should_not_receive(:tweet)
+        subject.maybe_tweet_the_link(link)
+      end
     end
   end
 
-  context "link is good to tweet" do
-    before do
-      good_to_tweet_check.stub(:perform).with(account, link).and_return(true)
-    end
+  context "Link source does not match account" do
+    it "does not tweet the link" do
+      link.stub(:source).and_return('Proggit')
 
-    it "tweets the link" do
-      twitter.should_receive(:tweet).with(account, link)
+      twitter.should_not_receive(:tweet)
       subject.maybe_tweet_the_link(link)
     end
   end
