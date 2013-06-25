@@ -1,7 +1,7 @@
 require_relative 'spec_helper'
 require_relative '../lib/links.rb'
-require_relative '../lib/link_sources/proggit.rb'
-require_relative '../lib/link_sources/hn.rb'
+require_relative '../lib/crawlers/proggit.rb'
+require_relative '../lib/crawlers/hn.rb'
 
 describe Links do
   it "fetches all links" do

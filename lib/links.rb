@@ -1,15 +1,15 @@
 class Links
   def self.fetch
-    sources.inject([]) do |acc, source|
-      acc += source.fetch
+    crawlers.inject([]) do |acc, crawler|
+      acc += crawler.fetch
     end
   end
 
   private
 
-  def self.sources
-    @@sources ||= begin
-                    Dir[File.expand_path '../link_sources/*.rb', __FILE__].map do |file|
+  def self.crawlers
+    @@crawlers ||= begin
+                    Dir[File.expand_path '../crawlers/*.rb', __FILE__].map do |file|
                       require file
                       filename_to_classname(file).constantize
                     end
