@@ -7,4 +7,5 @@ gem 'key_struct'
 group do
   gem 'rspec'
   gem 'rspec-fire'
+  gem 'jazz_hands'
 end
