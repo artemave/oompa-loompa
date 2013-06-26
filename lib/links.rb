@@ -9,11 +9,11 @@ class Links
 
   def self.crawlers
     @@crawlers ||= begin
-                    Dir[File.expand_path '../crawlers/*.rb', __FILE__].map do |file|
-                      require file
-                      filename_to_classname(file).constantize
-                    end
-                  end
+                     Dir[File.expand_path '../crawlers/*.rb', __FILE__].map do |file|
+                       require file
+                       filename_to_classname(file).constantize
+                     end
+                   end
   end
 
   def self.filename_to_classname file
