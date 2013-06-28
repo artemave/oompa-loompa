@@ -4,6 +4,7 @@ class AccountStatusUpdater
 
   def initialize account
     @account = account
+    @twitter = Twitter.new account
   end
 
   def maybe_tweet_the_link link
@@ -11,7 +12,7 @@ class AccountStatusUpdater
     return if source_does_not_match?(link)
     return if already_tweeted?(link)
 
-    Twitter.tweet @account, link
+    @twitter.tweet link
   end
 
   private

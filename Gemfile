@@ -4,6 +4,7 @@ gem 'ruby-hackernews'
 gem "mongoid", "~> 3.0.0"
 gem 'key_struct'
 gem 'rest-client'
+gem 'curb'
 
 group :test, :development do
   gem 'awesome_print'

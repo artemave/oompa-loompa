@@ -15,7 +15,12 @@ describe AccountStatusUpdater do
       url: 'http://beer_is_good.com'
   end
 
-  let(:twitter) {class_double('Twitter').as_stubbed_const}
+  let(:twitter_class) {class_double('Twitter').as_stubbed_const}
+  let(:twitter) { instance_double 'Twitter' }
+
+  before :each do
+    twitter_class.stub(:new).with(account).and_return(twitter)
+  end
 
   subject { AccountStatusUpdater.new account }
 
@@ -23,7 +28,7 @@ describe AccountStatusUpdater do
     context "Link score is greater than account minimum acceptable score" do
       context "Link has not been tweeted yet" do
         it "tweets the link" do
-          twitter.should_receive(:tweet).with(account, link)
+          twitter.should_receive(:tweet).with(link)
           subject.maybe_tweet_the_link(link)
         end
       end

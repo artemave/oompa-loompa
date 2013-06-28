@@ -24,6 +24,7 @@ GEM
     coderay (1.0.9)
     columnize (0.3.6)
     coolline (0.4.0)
+    curb (0.8.4)
     debug_inspector (0.0.2)
     debugger (1.6.0)
       columnize (>= 0.3.1)
@@ -160,6 +161,7 @@ PLATFORMS
 
 DEPENDENCIES
   awesome_print
+  curb
   jazz_hands
   key_struct
   mongoid (~> 3.0.0)
