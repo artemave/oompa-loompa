@@ -5,6 +5,7 @@ gem "mongoid", "~> 3.0.0"
 gem 'key_struct'
 gem 'rest-client'
 gem 'curb'
+gem 'googl'
 
 group :test, :development do
   gem 'awesome_print'
