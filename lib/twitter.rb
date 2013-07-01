@@ -1,5 +1,4 @@
 require 'curb'
-require_relative 'tweet_text'
 
 class Twitter
   def initialize account
@@ -7,12 +6,12 @@ class Twitter
     @curb = Curl::Easy.new do |curl|
       curl.headers["User-Agent"] = "Mozilla/5.0"
       curl.enable_cookies = true
+      curl.follow_location = true
     end
   end
 
-  def tweet link
+  def tweet msg
     login
-    msg = TweetText.from_link(link)
     send_tweet msg
     logout
   end
@@ -51,6 +50,7 @@ class Twitter
   def get_token url
     @curb.url = url
     @curb.perform
-    @curb.body_str[/authenticity_token.*?value="([^"]*)"/m, 1]
+    content = @curb.body_str
+    content[/authenticity_token.*?value="([^"]*)"/m, 1]
   end
 end

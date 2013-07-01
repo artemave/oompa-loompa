@@ -1,4 +1,5 @@
 require_relative 'twitter'
+require_relative 'tweet_text'
 
 class AccountStatusUpdater
 
@@ -12,7 +13,8 @@ class AccountStatusUpdater
     return if source_does_not_match?(link)
     return if already_tweeted?(link)
 
-    @twitter.tweet link
+    msg = TweetText.from_link(link)
+    @twitter.tweet msg
   end
 
   private

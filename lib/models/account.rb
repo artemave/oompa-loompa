@@ -1,4 +1,5 @@
 require 'mongoid'
+require_relative 'tweet'
 
 class Account
   include Mongoid::Document
