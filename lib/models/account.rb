@@ -5,6 +5,7 @@ class Account
   include Mongoid::Document
 
   field :username
+  field :password
   has_many :tweets
 
   def minimum_acceptable_score

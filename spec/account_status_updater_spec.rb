@@ -57,7 +57,7 @@ describe AccountStatusUpdater do
 
   context "Link source does not match account" do
     it "does not tweet the link" do
-      link.stub(:source).and_return('Proggit')
+      link.stub(:source).and_return('RProgramming')
 
       twitter.should_not_receive(:tweet)
       subject.maybe_tweet_the_link(link)

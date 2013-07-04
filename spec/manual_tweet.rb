@@ -9,7 +9,7 @@ class TestScenario
   attr_accessor :account, :twitter, :link
 
   def initialize
-    @account = Account.create username: 'HN150Proggit100', password: "G4ewzgNh2FgK"
+    @account = Account.create username: 'HN150', password: "G4ewzgNh2FgK"
     @twitter = Twitter.new account
     @link    = Link.new title: 'test tweet', url: 'http://www.google.com'
   end
