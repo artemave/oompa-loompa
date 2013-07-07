@@ -7,7 +7,7 @@ describe TweetText do
       score: 23,
       title: 'this is title',
       url: 'http://long.url.com/aaa/bbb',
-      source: 'HN'
+      source: 'Hn'
     )
   end
 

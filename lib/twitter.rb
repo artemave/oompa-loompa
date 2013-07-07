@@ -1,4 +1,5 @@
 require 'curb'
+require 'tempfile'
 
 class Twitter
   def initialize account
@@ -6,20 +7,15 @@ class Twitter
     @curb = Curl::Easy.new do |curl|
       curl.headers["User-Agent"] = "Mozilla/5.0"
       curl.enable_cookies = true
+      curl.cookiejar = Tempfile.new('oompa_cookie').path
       curl.follow_location = true
     end
   end
 
-  def tweet msg
-    login
-    send_tweet msg
-    logout
-  end
-
-  private
-
   def login
     login_token = get_token("https://mobile.twitter.com/session/new")
+
+    $logger.debug "login token: #{login_token}"
 
     @curb.url = 'https://mobile.twitter.com/session'
     post_fields = [
@@ -28,28 +24,43 @@ class Twitter
       Curl::PostField.content("password", @account.password)
     ]
     @curb.http_post post_fields
+
+    $logger.debug @curb.status
+
+    @logged_in = true
   end
 
-  def send_tweet msg
-    homepage_token = get_token("http://mobile.twitter.com/")
+  def tweet msg
+    login unless @logged_in
 
-    @curb.url = 'https://mobile.twitter.com/'
+    compose_tweet_token = get_token('https://mobile.twitter.com/compose/tweet')
+
+    $logger.debug "compose_tweet_token: #{compose_tweet_token}"
+
+    $logger.debug "Sending tweet"
+
+    @curb.url = 'https://mobile.twitter.com'
     post_fields = [
-      Curl::PostField.content("authenticity_token", homepage_token),
+      Curl::PostField.content("authenticity_token", compose_tweet_token),
       Curl::PostField.content("tweet[text]", msg),
-      Curl::PostField.content("tweet[display_coordinates]", 'false')
+      Curl::PostField.content("commit", 'Tweet')
     ]
     @curb.http_post post_fields
+
+    $logger.debug @curb.status
   end
 
   def logout
     @curb.url = "http://mobile.twitter.com/session/destroy"
+    @curb.delete = true
     @curb.perform
   end
 
+  private
+
   def get_token url
     @curb.url = url
-    @curb.perform
+    @curb.get
     content = @curb.body_str
     content[/authenticity_token.*?value="([^"]*)"/m, 1]
   end

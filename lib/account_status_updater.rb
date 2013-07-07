@@ -8,13 +8,17 @@ class AccountStatusUpdater
     @twitter = Twitter.new account
   end
 
-  def maybe_tweet_the_link link
-    return if score_too_low?(link)
-    return if source_does_not_match?(link)
-    return if already_tweeted?(link)
+  def maybe_tweet_the_links links
+    links.each do |link|
+      next if score_too_low?(link)
+      next if source_does_not_match?(link)
+      next if already_tweeted?(link)
 
-    msg = TweetText.from_link(link)
-    @twitter.tweet msg
+      msg = TweetText.from_link(link)
+      @twitter.tweet msg
+
+      @account.tweets.create(link_url: link.url)
+    end
   end
 
   private

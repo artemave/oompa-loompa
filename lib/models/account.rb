@@ -6,7 +6,7 @@ class Account
 
   field :username
   field :password
-  has_many :tweets
+  embeds_many :tweets
 
   def minimum_acceptable_score
     username[/\d+$/].to_i

@@ -4,18 +4,21 @@ require_relative '../lib/boot'
 require_relative '../lib/twitter'
 require_relative '../lib/models/account'
 require_relative '../lib/models/link'
+require_relative '../lib/tweet_text'
 
 class TestScenario
   attr_accessor :account, :twitter, :link
 
   def initialize
-    @account = Account.create username: 'HN150', password: "G4ewzgNh2FgK"
+    @account = Account.where(username: 'Hn150', password: "G4ewzgNh2FgK").first
+    @account ||= Account.create username: 'Hn150', password: "G4ewzgNh2FgK"
+
     @twitter = Twitter.new account
     @link    = Link.new title: 'test tweet', url: 'http://www.google.com'
   end
 
   def tweet
-    twitter.tweet link
+    twitter.tweet TweetText.from_link(link)
   end
 end
 

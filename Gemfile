@@ -6,10 +6,11 @@ gem 'key_struct'
 gem 'rest-client'
 gem 'curb'
 gem 'googl'
+gem 'rake'
 
 group :test, :development do
   gem 'awesome_print'
   gem 'rspec'
   gem 'rspec-fire'
-  gem 'jazz_hands'
+  gem 'pry'
 end

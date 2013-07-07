@@ -6,13 +6,19 @@ require_relative 'spec_helper'
 
 describe AccountStatusUpdater do
   let(:account) do
-    Account.create(username: 'HN150')
+    Account.create(username: 'Hn150')
   end
   let(:link) do
-    Link.new source: 'HN',
+    Link.new source: 'Hn',
       score: 200,
       title: 'beer is good',
       url: 'http://beer_is_good.com'
+  end
+  let(:shitty_link) do
+    Link.new source: 'Hn',
+      score: 20,
+      title: 'beer is bad',
+      url: 'http://beer_is_bad.com'
   end
 
   let(:tweet_text) { class_double('TweetText').as_stubbed_const }
@@ -29,9 +35,20 @@ describe AccountStatusUpdater do
   context "Link source matches account" do
     context "Link score is greater than account minimum acceptable score" do
       context "Link has not been tweeted yet" do
+        before do
+          twitter.stub(:tweet)
+        end
+
         it "tweets the link" do
           twitter.should_receive(:tweet).with('text')
-          subject.maybe_tweet_the_link(link)
+          subject.maybe_tweet_the_links([link, shitty_link])
+        end
+
+        it "adds tweet to account's sent tweets" do
+          subject.maybe_tweet_the_links([link, shitty_link])
+
+          account.tweets.count.should == 1
+          account.tweets.last.link_url.should == link.url
         end
       end
 
@@ -40,7 +57,7 @@ describe AccountStatusUpdater do
           account.stub(:tweets).and_return([Tweet.new(link_url: 'http://beer_is_good.com')])
 
           twitter.should_not_receive(:tweet)
-          subject.maybe_tweet_the_link(link)
+          subject.maybe_tweet_the_links([link])
         end
       end
     end
@@ -50,7 +67,7 @@ describe AccountStatusUpdater do
         link.stub(:score).and_return(100)
 
         twitter.should_not_receive(:tweet)
-        subject.maybe_tweet_the_link(link)
+        subject.maybe_tweet_the_links([link])
       end
     end
   end
@@ -60,7 +77,7 @@ describe AccountStatusUpdater do
       link.stub(:source).and_return('RProgramming')
 
       twitter.should_not_receive(:tweet)
-      subject.maybe_tweet_the_link(link)
+      subject.maybe_tweet_the_links([link])
     end
   end
 end
