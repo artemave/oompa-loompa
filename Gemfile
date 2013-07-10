@@ -6,12 +6,13 @@ gem 'key_struct'
 gem 'rest-client'
 gem 'curb'
 gem 'googl'
-gem 'rake'
+gem 'activesupport'
+gem 'rake', require: false
 gem 'whenever', require: false
 
 group :test, :development do
   gem 'awesome_print'
-  gem 'pry'
+  gem 'pry', require: false
 
   gem 'rspec', require: false
   gem 'rspec-fire', require: false

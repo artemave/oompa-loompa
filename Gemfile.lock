@@ -85,6 +85,7 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
+  activesupport
   awesome_print
   curb
   googl
