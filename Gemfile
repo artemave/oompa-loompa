@@ -7,10 +7,12 @@ gem 'rest-client'
 gem 'curb'
 gem 'googl'
 gem 'rake'
+gem 'whenever', require: false
 
 group :test, :development do
   gem 'awesome_print'
-  gem 'rspec'
-  gem 'rspec-fire'
   gem 'pry'
+
+  gem 'rspec', require: false
+  gem 'rspec-fire', require: false
 end
