@@ -8,7 +8,7 @@
 set :output, "#{__dir__}/../log/cron_log.log"
 
 every 10.minutes do
-  runner "RACK_ENV=#@environment rake send_tweets"
+  command "RACK_ENV=#@environment rake send_tweets"
 end
 #
 # every 4.days do
