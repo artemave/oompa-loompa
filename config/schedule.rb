@@ -5,10 +5,10 @@
 
 # Example:
 #
-set :output, "#{__dir__}/../log/cron_log.log"
+set :output, "#{File.expand_path '../..', __FILE__}/log/cron_log.log"
 
 every 10.minutes do
-  command "RACK_ENV=#@environment rake send_tweets"
+  command "cd #{File.expand_path '../..', __FILE__} && RACK_ENV=#@environment bundle exec rake send_tweets"
 end
 #
 # every 4.days do
