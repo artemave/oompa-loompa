@@ -8,6 +8,8 @@ task :send_tweets do
   links = Links.fetch
 
   Account.all.each do |account|
+    $logger.info "Updating account #{account.inspect}"
+
     updater = AccountStatusUpdater.new(account)
     updater.maybe_tweet_the_links links
   end

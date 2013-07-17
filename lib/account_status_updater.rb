@@ -14,6 +14,8 @@ class AccountStatusUpdater
       next if source_does_not_match?(link)
       next if already_tweeted?(link)
 
+      $logger.info "about to tweet #{link}"
+
       msg = TweetText.from_link(link)
       @twitter.tweet msg
 

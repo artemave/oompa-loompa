@@ -2,6 +2,8 @@ class Links
   def self.fetch
     crawlers.inject([]) do |acc, crawler|
       acc += crawler.fetch
+    end.select do |link|
+      link.score.present?
     end
   end
 
