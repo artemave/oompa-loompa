@@ -12,6 +12,7 @@ class RProgramming
         score: entry['data']['score'],
         title: entry['data']['title'],
         url: entry['data']['url'],
+        comments_url: "http://www.reddit.com/#{entry['data']['permalink']}",
         source: to_s
       )
     end

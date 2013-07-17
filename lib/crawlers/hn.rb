@@ -8,6 +8,7 @@ class Hn
         score: entry.voting.score,
         title: entry.link.title,
         url: entry.link.href,
+        comments_url: entry.comments_url,
         source: to_s
       )
     end

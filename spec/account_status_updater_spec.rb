@@ -12,12 +12,14 @@ describe AccountStatusUpdater do
     Link.new source: 'Hn',
       score: 200,
       title: 'beer is good',
+      comments_url: 'http://beer_is_good.com/comments',
       url: 'http://beer_is_good.com'
   end
   let(:shitty_link) do
     Link.new source: 'Hn',
       score: 20,
       title: 'beer is bad',
+      comments_url: 'http://beer_is_good.com/comments',
       url: 'http://beer_is_bad.com'
   end
 

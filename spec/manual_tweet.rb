@@ -14,7 +14,7 @@ class TestScenario
     @account ||= Account.create(username: 'RProgramming200', password: "rlOXPv85l65I")
 
     @twitter = Twitter.new account
-    @link    = Link.new title: 'test tweet', url: 'http://www.google.com'
+    @link    = Link.new title: 'test tweet', url: 'http://www.google.com', comments_url: 'http://www.google.com/comments'
   end
 
   def tweet
