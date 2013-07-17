@@ -6,6 +6,7 @@
 # Example:
 #
 set :output, "#{File.expand_path '../..', __FILE__}/log/cron_log.log"
+set :job_template, "zsh -l -c ':job'"
 
 every 10.minutes do
   command "cd #{File.expand_path '../..', __FILE__} && RACK_ENV=#@environment bundle exec rake send_tweets"
