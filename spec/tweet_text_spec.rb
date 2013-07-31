@@ -17,21 +17,15 @@ describe TweetText do
     url_shortener.stub(:shorten).and_return('stub')
   end
 
-  it "makes sure text does not exceed 140 characters" do
-    link.title = 'b'*200
-    msg = TweetText.from_link link
-
-    msg.size.should == 140
-  end
-
   context "link is too long" do
     before :each do
       link.title = 'b'*200
     end
 
-    it "makes sure text does not exceed 140 characters" do
+    # twitter charges 2 extra characters per link; twats
+    it "makes sure text does not exceed 136 characters" do
       msg = TweetText.from_link link
-      msg.size.should == 140
+      msg.size.should == 136
     end
 
     it "includes shortened link nontheless" do
@@ -40,11 +34,21 @@ describe TweetText do
       msg.should =~ / aaa/
     end
 
+    it "follows cut title with ..." do
+      msg = TweetText.from_link link
+      msg.should =~ /bbb\.\.\. /
+    end
+
     it "includes shortened comments link nontheless" do
       url_shortener.stub(:shorten).with('http://long.url.com/comments').and_return('comments')
       msg = TweetText.from_link link
       msg.should =~ / \(comments\)/
     end
+  end
+
+  it "does not add ... if link.title is short enough" do
+    msg = TweetText.from_link link
+    msg.should_not =~ /\.\.\./
   end
 
   it "shortens link url" do
