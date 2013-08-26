@@ -7,6 +7,7 @@ gem 'rest-client'
 gem 'curb'
 gem 'googl'
 gem 'activesupport'
+gem 'sinatra', require: false
 gem 'rake', require: false
 gem 'whenever', require: false
 
@@ -15,5 +16,8 @@ group :test, :development do
   gem 'pry', require: false
 
   gem 'rspec', require: false
-  gem 'rspec-fire', require: false
+  gem 'rspec-fire'
+  gem 'cucumber'
+  gem 'capybara'
+  gem 'selenium-webdriver'
 end

@@ -1,5 +1,5 @@
 require 'bundler'
-Bundler.require
+Bundler.require :default
 
 require 'mongoid'
 require 'logger'
