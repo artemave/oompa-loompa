@@ -9,7 +9,6 @@ gem 'googl'
 gem 'activesupport'
 gem 'sinatra', require: false
 gem 'rake', require: false
-gem 'whenever', require: false
 
 group :test, :development do
   gem 'awesome_print'
