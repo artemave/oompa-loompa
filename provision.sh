@@ -18,5 +18,6 @@ fi
 
 docker build -t oompa .
 
+docker stop tweet_sender || :
 docker rm tweet_sender || :
 docker run -d --link mongodb:mongodb --name tweet_sender oompa
