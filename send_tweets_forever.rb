@@ -1,3 +1,6 @@
+# to see stdout in docker logs
+STDOUT.sync = true
+
 require 'rake'
 
 Rake.load_rakefile 'Rakefile'
