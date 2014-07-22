@@ -5,14 +5,14 @@ require 'rake'
 
 Rake.load_rakefile 'Rakefile'
 
-puts "Starting up a daemon"
+$logger.info "Starting up a daemon"
 
 while true
   begin
     Rake.application[:send_tweets].invoke
   rescue StandardError => e
-    puts e
-    e.backtrace.each &method(:puts)
+    $logger.error e
+    e.backtrace.each &$logger.method(:error)
   end
-  sleep 600
+  sleep 10.minutes
 end
