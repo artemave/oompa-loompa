@@ -14,5 +14,4 @@ while true
     $logger.error e
     e.backtrace.each &$logger.method(:error)
   end
-  sleep 10.minutes
 end
