@@ -14,5 +14,5 @@ while true
     puts e
     e.backtrace.each &method(:puts)
   end
-  sleep 10.minutes
+  sleep 600
 end
