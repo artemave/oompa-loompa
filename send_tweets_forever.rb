@@ -1,5 +1,6 @@
 # to see stdout in docker logs
 STDOUT.sync = true
+STDERR.sync = true
 
 require 'rake'
 
