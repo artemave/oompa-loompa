@@ -11,4 +11,4 @@ RUN bundle install --system --without test:development
 ADD . /app
 
 ENV RACK_ENV production
-CMD ["bundle",  "exec",  "ruby",  "./send_tweets_forever.rb"]
+CMD ["./send_tweets_forever.sh"]
