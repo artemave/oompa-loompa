@@ -20,4 +20,4 @@ docker build -t oompa .
 
 docker stop tweet_sender || :
 docker rm tweet_sender || :
-docker run -d --link mongodb:mongodb --name tweet_sender oompa
+docker run -d --link mongodb:mongodb -e GOOGLE_ALLOWED_IP=$GOOGLE_ALLOWED_IP -e GOOGLE_API_KEY=$GOOGLE_API_KEY --name tweet_sender oompa
