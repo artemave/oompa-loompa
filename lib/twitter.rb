@@ -39,15 +39,18 @@ class Twitter
 
     $logger.debug "Sending tweet"
 
-    @curb.url = 'https://mobile.twitter.com'
+    @curb.url = 'https://mobile.twitter.com/api/tweet'
     post_fields = [
-      Curl::PostField.content("authenticity_token", compose_tweet_token),
-      Curl::PostField.content("tweet[text]", msg),
-      Curl::PostField.content("commit", 'Tweet')
+      Curl::PostField.content("m5_csrf_tkn", compose_tweet_token),
+      Curl::PostField.content("tweet[text]", msg)
     ]
     @curb.http_post post_fields
 
-    $logger.debug @curb.status
+    if @curb.status =~ /^200/
+      $logger.debug @curb.status
+    else
+      $logger.error @curb.status
+    end
   end
 
   def logout
