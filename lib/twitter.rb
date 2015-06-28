@@ -33,15 +33,15 @@ class Twitter
   def tweet msg
     login unless @logged_in
 
-    compose_tweet_token = get_token('https://mobile.twitter.com/compose/tweet')
+    @compose_tweet_token ||= get_token('https://mobile.twitter.com/compose/tweet')
 
-    $logger.debug "compose_tweet_token: #{compose_tweet_token}"
+    $logger.debug "compose_tweet_token: #{@compose_tweet_token}"
 
     $logger.debug "Sending tweet"
 
     @curb.url = 'https://mobile.twitter.com/api/tweet'
     post_fields = [
-      Curl::PostField.content("m5_csrf_tkn", compose_tweet_token),
+      Curl::PostField.content("m5_csrf_tkn", @compose_tweet_token),
       Curl::PostField.content("tweet[text]", msg)
     ]
     @curb.http_post post_fields
@@ -57,6 +57,9 @@ class Twitter
     @curb.url = "http://mobile.twitter.com/session/destroy"
     @curb.delete = true
     @curb.perform
+
+    @logged_in = false
+    $logger.info "logged out"
   end
 
   private
