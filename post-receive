@@ -1,0 +1,8 @@
+#!/bin/sh
+
+mkdir -p /var/oompa
+git --work-tree=/var/oompa --git-dir=/var/git/oompa.git checkout -f
+cd /var/oompa
+export GOOGLE_ALLOWED_IP=
+export GOOGLE_API_KEY=
+./provision.sh
