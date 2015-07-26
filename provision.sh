@@ -13,7 +13,7 @@ if [[ ! $mongo_is_running ]]; then
   mkdir -p $DATA_DIR
 
   docker rm mongodb || :
-  docker run -d -p 27017:27017 -v $DATA_DIR:/data/db --name mongodb dockerfile/mongodb
+  docker run -d -p 27017:27017 -v $DATA_DIR:/data/db --name mongodb mongo
 fi
 
 docker build -t oompa .
