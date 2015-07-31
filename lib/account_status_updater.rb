@@ -1,11 +1,11 @@
-require_relative 'twitter'
+require_relative 'twitter_adapter'
 require_relative 'tweet_text'
 
 class AccountStatusUpdater
 
   def initialize account
     @account = account
-    @twitter = Twitter.new account
+    @twitter = TwitterAdapter.new account
   end
 
   def maybe_tweet_the_links links

@@ -18,6 +18,9 @@ fi
 
 docker build -t oompa .
 
+docker build -t oompa-auth -f Dockerfile-auth
+docker run -d --link mongodb:mongodb -e TWITTER_KEY=$TWITTER_KEY -e TWITTER_SECRET=$TWITTER_SECRET --name authorize-accounts oompa-auth
+
 docker stop tweet_sender || :
 docker rm tweet_sender || :
 docker run -d --link mongodb:mongodb -e GOOGLE_ALLOWED_IP=$GOOGLE_ALLOWED_IP -e GOOGLE_API_KEY=$GOOGLE_API_KEY --name tweet_sender oompa

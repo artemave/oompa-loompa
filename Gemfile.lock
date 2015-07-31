@@ -7,7 +7,9 @@ GEM
     activesupport (3.2.22)
       i18n (~> 0.6, >= 0.6.4)
       multi_json (~> 1.0)
+    addressable (2.3.8)
     awesome_print (1.6.1)
+    buftok (0.2.0)
     builder (3.0.4)
     capybara (2.4.4)
       mime-types (>= 1.16)
@@ -27,18 +29,24 @@ GEM
       multi_test (>= 0.1.2)
     cucumber-core (1.1.3)
       gherkin (~> 2.12.0)
-    curb (0.8.8)
     diff-lcs (1.2.5)
     domain_name (0.5.24)
       unf (>= 0.0.5, < 1.0.0)
+    equalizer (0.0.11)
+    faraday (0.9.1)
+      multipart-post (>= 1.2, < 3)
     ffi (1.9.9)
     gherkin (2.12.2)
       multi_json (~> 1.3)
     googl (0.7.1)
       httparty (~> 0.10)
       json (>= 1.4.6)
+    hashie (3.4.2)
+    http (0.6.4)
+      http_parser.rb (~> 0.6.0)
     http-cookie (1.0.2)
       domain_name (~> 0.5)
+    http_parser.rb (0.6.0)
     httparty (0.13.5)
       json (~> 1.8)
       multi_xml (>= 0.5.2)
@@ -54,6 +62,8 @@ GEM
       nokogiri (~> 1.4)
       ntlm-http (~> 0.1, >= 0.1.1)
       webrobots (>= 0.0.9, < 0.2)
+    memoizable (0.4.2)
+      thread_safe (~> 0.3, >= 0.3.1)
     method_source (0.8.2)
     mime-types (2.6.1)
     mini_portile (0.6.2)
@@ -66,12 +76,24 @@ GEM
     multi_json (1.11.1)
     multi_test (0.1.2)
     multi_xml (0.5.5)
+    multipart-post (2.0.0)
+    naught (1.0.0)
     net-http-digest_auth (1.4)
     net-http-persistent (2.9.4)
     netrc (0.10.3)
     nokogiri (1.6.6.2)
       mini_portile (~> 0.6.0)
     ntlm-http (0.1.1)
+    oauth (0.4.7)
+    omniauth (1.2.2)
+      hashie (>= 1.2, < 4)
+      rack (~> 1.0)
+    omniauth-oauth (1.1.0)
+      oauth
+      omniauth (~> 1.0)
+    omniauth-twitter (1.2.1)
+      json (~> 1.3)
+      omniauth-oauth (~> 1.1)
     origin (1.1.0)
     pry (0.10.1)
       coderay (~> 1.1.0)
@@ -97,8 +119,9 @@ GEM
     rspec-expectations (3.3.0)
       diff-lcs (>= 1.2.0, < 2.0)
       rspec-support (~> 3.3.0)
-    rspec-fire (1.3.0)
-      rspec (>= 2.11, < 4)
+    rspec-its (1.2.0)
+      rspec-core (>= 3.0.0)
+      rspec-expectations (>= 3.0.0)
     rspec-mocks (3.3.1)
       diff-lcs (>= 1.2.0, < 2.0)
       rspec-support (~> 3.3.0)
@@ -112,12 +135,25 @@ GEM
       multi_json (~> 1.0)
       rubyzip (~> 1.0)
       websocket (~> 1.0)
+    simple_oauth (0.3.1)
     sinatra (1.4.6)
       rack (~> 1.4)
       rack-protection (~> 1.4)
       tilt (>= 1.3, < 3)
     slop (3.6.0)
+    thread_safe (0.3.5)
     tilt (2.0.1)
+    twitter (5.14.0)
+      addressable (~> 2.3)
+      buftok (~> 0.2.0)
+      equalizer (~> 0.0.9)
+      faraday (~> 0.9.0)
+      http (~> 0.6.0)
+      http_parser.rb (~> 0.6.0)
+      json (~> 1.8)
+      memoizable (~> 0.4.0)
+      naught (~> 1.0)
+      simple_oauth (~> 0.3.0)
     tzinfo (0.3.44)
     unf (0.1.4)
       unf_ext
@@ -135,18 +171,19 @@ DEPENDENCIES
   awesome_print
   capybara
   cucumber
-  curb
   googl
   key_struct
   mongoid (~> 3.0.0)
+  omniauth-twitter
   pry
   rake
   rest-client
   rspec
-  rspec-fire
+  rspec-its
   ruby-hackernews
   selenium-webdriver
   sinatra
+  twitter
 
 BUNDLED WITH
    1.10.3
