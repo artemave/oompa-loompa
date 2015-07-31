@@ -14,7 +14,7 @@ describe TweetText do
 
   let(:url_shortener) { class_double('UrlShortener').as_stubbed_const }
   before :each do
-    url_shortener.stub(:shorten).and_return('stub')
+    allow(url_shortener).to receive(:shorten).and_return('stub')
   end
 
   context "link is too long" do
@@ -25,41 +25,41 @@ describe TweetText do
     # twitter charges 2 extra characters per link; twats
     it "makes sure text does not exceed 136 characters" do
       msg = TweetText.from_link link
-      msg.size.should == 136
+      expect(msg.size).to eq(136)
     end
 
     it "includes shortened link nontheless" do
-      url_shortener.stub(:shorten).with('http://long.url.com/aaa/bbb').and_return('aaa')
+      allow(url_shortener).to receive(:shorten).with('http://long.url.com/aaa/bbb').and_return('aaa')
       msg = TweetText.from_link link
-      msg.should =~ / aaa/
+      expect(msg).to match(/ aaa/)
     end
 
     it "follows cut title with ..." do
       msg = TweetText.from_link link
-      msg.should =~ /bbb\.\.\. /
+      expect(msg).to match(/bbb\.\.\. /)
     end
 
     it "includes shortened comments link nontheless" do
-      url_shortener.stub(:shorten).with('http://long.url.com/comments').and_return('comments')
+      allow(url_shortener).to receive(:shorten).with('http://long.url.com/comments').and_return('comments')
       msg = TweetText.from_link link
-      msg.should =~ / \(comments\)/
+      expect(msg).to match(/ \(comments\)/)
     end
   end
 
   it "does not add ... if link.title is short enough" do
     msg = TweetText.from_link link
-    msg.should_not =~ /\.\.\./
+    expect(msg).not_to match(/\.\.\./)
   end
 
   it "shortens link url" do
-    url_shortener.should_receive(:shorten).with('http://long.url.com/aaa/bbb').and_return('short_url')
+    expect(url_shortener).to receive(:shorten).with('http://long.url.com/aaa/bbb').and_return('short_url')
     msg = TweetText.from_link link
-    msg.should =~ / short_url/
+    expect(msg).to match(/ short_url/)
   end
 
   it "shortens comments url" do
-    url_shortener.should_receive(:shorten).with('http://long.url.com/comments').and_return('comments url')
+    expect(url_shortener).to receive(:shorten).with('http://long.url.com/comments').and_return('comments url')
     msg = TweetText.from_link link
-    msg.should =~ / \(comments url\)/
+    expect(msg).to match(/ \(comments url\)/)
   end
 end

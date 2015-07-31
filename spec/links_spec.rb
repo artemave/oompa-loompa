@@ -9,20 +9,20 @@ describe Links do
   let(:link3) { double score: 30 }
 
   it "fetches all links" do
-    Hn.should_receive(:fetch).and_return([link1,link2])
-    RProgramming.should_receive(:fetch).and_return([link3])
+    expect(Hn).to receive(:fetch).and_return([link1,link2])
+    expect(RProgramming).to receive(:fetch).and_return([link3])
 
     links = Links.fetch
-    links.should =~ [link1, link2, link3]
+    expect(links).to match_array([link1, link2, link3])
   end
 
   it "weeds out links without score" do
-    Hn.stub(:fetch).and_return([link1,link2])
-    RProgramming.stub(:fetch).and_return([link3])
+    allow(Hn).to receive(:fetch).and_return([link1,link2])
+    allow(RProgramming).to receive(:fetch).and_return([link3])
 
-    link2.stub(:score).and_return(nil)
+    allow(link2).to receive(:score).and_return(nil)
 
     links = Links.fetch
-    links.should =~ [link1, link3]
+    expect(links).to match_array([link1, link3])
   end
 end

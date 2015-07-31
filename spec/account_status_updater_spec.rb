@@ -24,12 +24,12 @@ describe AccountStatusUpdater do
   end
 
   let(:tweet_text) { class_double('TweetText').as_stubbed_const }
-  let(:twitter_class) {class_double('Twitter').as_stubbed_const}
-  let(:twitter) { instance_double 'Twitter' }
+  let(:twitter_class) { class_double('TwitterAdapter').as_stubbed_const }
+  let(:twitter) { instance_double 'TwitterAdapter' }
 
   before :each do
-    twitter_class.stub(:new).with(account).and_return(twitter)
-    tweet_text.stub(:from_link).with(link).and_return('text')
+    allow(twitter_class).to receive(:new).with(account).and_return(twitter)
+    allow(tweet_text).to receive(:from_link).with(link).and_return('text')
   end
 
   subject { AccountStatusUpdater.new account }
@@ -38,27 +38,27 @@ describe AccountStatusUpdater do
     context "Link score is greater than account minimum acceptable score" do
       context "Link has not been tweeted yet" do
         before do
-          twitter.stub(:tweet)
+          allow(twitter).to receive(:tweet)
         end
 
         it "tweets the link" do
-          twitter.should_receive(:tweet).with('text')
+          expect(twitter).to receive(:tweet).with('text')
           subject.maybe_tweet_the_links([link, shitty_link])
         end
 
         it "adds tweet to account's sent tweets" do
           subject.maybe_tweet_the_links([link, shitty_link])
 
-          account.tweets.count.should == 1
-          account.tweets.last.link_url.should == link.url
+          expect(account.tweets.count).to eq(1)
+          expect(account.tweets.last.link_url).to eq(link.url)
         end
       end
 
       context "Link has already been tweeted" do
         it "does not tweet the link" do
-          account.stub(:tweets).and_return([Tweet.new(link_url: 'http://beer_is_good.com')])
+          allow(account).to receive(:tweets).and_return([Tweet.new(link_url: 'http://beer_is_good.com')])
 
-          twitter.should_not_receive(:tweet)
+          expect(twitter).not_to receive(:tweet)
           subject.maybe_tweet_the_links([link])
         end
       end
@@ -66,9 +66,9 @@ describe AccountStatusUpdater do
 
     context "Link score is lower than account minimum acceptable score" do
       it "does not tweet the link" do
-        link.stub(:score).and_return(100)
+        allow(link).to receive(:score).and_return(100)
 
-        twitter.should_not_receive(:tweet)
+        expect(twitter).not_to receive(:tweet)
         subject.maybe_tweet_the_links([link])
       end
     end
@@ -76,9 +76,9 @@ describe AccountStatusUpdater do
 
   context "Link source does not match account" do
     it "does not tweet the link" do
-      link.stub(:source).and_return('RProgramming')
+      allow(link).to receive(:source).and_return('RProgramming')
 
-      twitter.should_not_receive(:tweet)
+      expect(twitter).not_to receive(:tweet)
       subject.maybe_tweet_the_links([link])
     end
   end
