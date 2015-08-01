@@ -1,4 +1,4 @@
 FROM oompa
 
 EXPOSE 4567
-CMD ["bundle exec ruby ./lib/web/auth.rb"]
+CMD ["bundle", "exec", "ruby", "./lib/web/auth.rb"]
