@@ -7,6 +7,7 @@ gem 'rest-client'
 gem 'googl'
 gem 'activesupport'
 gem 'sinatra', require: false
+gem 'rack-ssl', require: false
 gem 'omniauth-twitter', require: false
 gem 'twitter', require: false
 gem 'rake', require: false
