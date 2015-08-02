@@ -25,4 +25,7 @@ docker run -p '4567:4567' -d --link mongodb:mongodb -e TWITTER_KEY=$TWITTER_API_
 
 docker stop tweet_sender || :
 docker rm tweet_sender || :
-docker run -d --link mongodb:mongodb -e GOOGLE_ALLOWED_IP=$GOOGLE_ALLOWED_IP -e GOOGLE_API_KEY=$GOOGLE_API_KEY --name tweet_sender oompa
+docker run -d --link mongodb:mongodb -e GOOGLE_ALLOWED_IP=$GOOGLE_ALLOWED_IP \
+  -e GOOGLE_API_KEY=$GOOGLE_API_KEY \
+  -e TWITTER_KEY=$TWITTER_API_KEY \
+  -e TWITTER_SECRET=$TWITTER_API_SECRET --name tweet_sender oompa
