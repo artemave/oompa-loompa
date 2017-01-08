@@ -1,0 +1,14 @@
+#!/usr/bin/env ruby
+
+ENV['RACK_ENV'] ||= 'development'
+
+require 'pry'
+require_relative '../lib/boot'
+require_relative '../lib/account_status_updater'
+require_relative '../lib/links'
+require_relative '../lib/models/account'
+require_relative '../lib/models/link'
+require_relative '../lib/models/tweet'
+require_relative '../lib/models/account'
+
+Pry.start

@@ -22,10 +22,10 @@ describe TweetText do
       link.title = 'b'*200
     end
 
-    # twitter charges 2 extra characters per link; twats
-    it "makes sure text does not exceed 136 characters" do
+    it "makes sure text does not exceed 140 characters (urls are always 23ch long)" do
+      allow(url_shortener).to receive(:shorten).and_return('')
       msg = TweetText.from_link link
-      expect(msg.size).to eq(136)
+      expect(msg.size).to eq(140 - 2*23)
     end
 
     it "includes shortened link nontheless" do
