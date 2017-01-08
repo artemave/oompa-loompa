@@ -13,6 +13,7 @@ gem 'twitter', require: false
 gem 'rake', require: false
 
 group :test, :development do
+  gem "chromedriver-helper", require: false
   gem 'twurl', require: false
   gem 'awesome_print'
   gem 'pry', require: false

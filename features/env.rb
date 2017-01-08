@@ -7,6 +7,10 @@ require_relative '../lib/models/account'
 
 require 'capybara/cucumber'
 
+Capybara.register_driver :selenium do |app|
+  Capybara::Selenium::Driver.new(app, browser: :chrome)
+end
+
 Capybara.app = Site
 
 Before do
