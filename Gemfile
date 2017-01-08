@@ -11,12 +11,12 @@ gem 'rack-ssl', require: false
 gem 'omniauth-twitter', require: false
 gem 'twitter', require: false
 gem 'rake', require: false
+gem 'pry', require: false
 
 group :test, :development do
   gem "chromedriver-helper", require: false
   gem 'twurl', require: false
   gem 'awesome_print'
-  gem 'pry', require: false
 
   gem 'rspec'
   gem 'rspec-its'
