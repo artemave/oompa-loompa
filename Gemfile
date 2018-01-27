@@ -1,7 +1,7 @@
 source "https://rubygems.org"
 
 gem 'ruby-hackernews'
-gem "mongoid", "~> 3.0.0"
+gem "mongoid"
 gem 'key_struct'
 gem 'rest-client'
 gem 'googl'
@@ -20,6 +20,7 @@ group :test, :development do
 
   gem 'rspec'
   gem 'rspec-its'
+  gem 'database_cleaner'
   gem 'cucumber'
   gem 'capybara'
   gem 'selenium-webdriver'

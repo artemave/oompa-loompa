@@ -2,9 +2,17 @@ Bundler.require :default, :test
 
 ENV["RACK_ENV"] = 'test'
 require_relative '../lib/boot.rb'
+require 'database_cleaner'
 
 RSpec.configure do |config|
-  config.before(:each) do
-    Mongoid::Sessions.default.collections.select {|c| c.name !~ /system/ }.each(&:drop)
+  config.before(:suite) do
+    DatabaseCleaner.strategy = :truncation
+    DatabaseCleaner.clean_with(:truncation)
+  end
+
+  config.around(:each) do |example|
+    DatabaseCleaner.cleaning do
+      example.run
+    end
   end
 end

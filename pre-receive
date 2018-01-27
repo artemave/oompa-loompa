@@ -1,0 +1,17 @@
+#!/bin/bash
+
+app_dir=/var/oompa
+mkdir -p $app_dir
+
+while read oldrev newrev refname
+do
+  git archive $newrev | tar -x -C $add_dir
+done
+
+cd /var/oompa
+export GOOGLE_ALLOWED_IP=
+export GOOGLE_API_KEY=
+export TWITTER_API_KEY=
+export TWITTER_API_SECRET=
+
+./provision.sh
