@@ -4,7 +4,7 @@ gem 'ruby-hackernews'
 gem "mongoid"
 gem 'key_struct'
 gem 'rest-client'
-gem 'googl'
+gem 'google-api-client'
 gem 'activesupport'
 gem 'sinatra', require: false
 gem 'rack-ssl', require: false
