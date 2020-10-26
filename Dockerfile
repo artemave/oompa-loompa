@@ -1,14 +1,12 @@
-FROM ruby:2.5.0
+FROM ruby:2.6
 
 RUN mkdir -p /app
 WORKDIR /app
 
-ADD Gemfile /app/
-ADD Gemfile.lock /app/
+ADD Gemfile* /app/
 
-RUN bundle install --system --without test:development
+RUN bundle install --without test development
 
 ADD . /app
 
-ENV RACK_ENV production
 CMD ["./send_tweets_forever.sh"]

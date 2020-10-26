@@ -1,0 +1,4 @@
+# upload file
+# scp -r ./backup root@209.250.246.76:/root/oompa-backup
+
+docker run --rm --link mongodb:mongo -v /root/oompa-backup:/backup mongo bash -c 'mongorestore /backup --nsFrom=oompa_production.* --nsTo=oompa_production.* --nsInclude=oompa_production.* --host $MONGO_PORT_27017_TCP_ADDR'

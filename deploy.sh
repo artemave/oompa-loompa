@@ -13,7 +13,7 @@ if [[ ! $mongo_is_running ]]; then
   mkdir -p $DATA_DIR
 
   docker rm mongodb || :
-  docker run --rm -d --restart unless-stopped -v $DATA_DIR:/data/db --name mongodb mongo
+  docker run -d --restart unless-stopped -v $DATA_DIR:/data/db --name mongodb mongo
 fi
 
 docker build -t oompa .
@@ -31,8 +31,6 @@ docker stop tweet_sender || :
 docker rm tweet_sender || :
 docker run -d --restart unless-stopped --link mongodb:mongodb --name tweet_sender \
   -e RACK_ENV=production \
-  -e GOOGLE_ALLOWED_IP=$GOOGLE_ALLOWED_IP \
-  -e GOOGLE_API_KEY=$GOOGLE_API_KEY \
   -e TWITTER_KEY=$TWITTER_API_KEY \
   -e TWITTER_SECRET=$TWITTER_API_SECRET \
   oompa

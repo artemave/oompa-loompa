@@ -1,0 +1,6 @@
+#!/usr/bin/bash
+
+docker run --rm --link mongodb:mongo -v /data/mongo/backup:/backup mongo bash -c 'mongodump --out /backup --host $MONGO_PORT_27017_TCP_ADDR'
+
+# Download the dump
+# scp -r root@209.250.246.76:/data/mongo/backup ./backup

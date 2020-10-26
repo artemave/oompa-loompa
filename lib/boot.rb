@@ -1,6 +1,4 @@
-require 'bundler'
-Bundler.require :default
-
+require 'bundler/setup'
 require 'mongoid'
 require 'logger'
 

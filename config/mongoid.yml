@@ -3,16 +3,20 @@ development:
     default:
       database: oompa_development
       hosts:
-        - <%= ENV['MONGO_URL'] || '127.0.0.1' %>:27017
+        - <%= ENV['MONGO_URL'] || 'localhost' %>:27017
+      options:
+        server_selection_timeout: 1
 test:
   clients:
     default:
       database: oompa_test
       hosts:
-        - <%= ENV['MONGO_URL'] || '127.0.0.1' %>:27017
+        - <%= ENV['MONGO_URL'] || 'localhost' %>:27017
+      options:
+        server_selection_timeout: 1
 production:
   clients:
     default:
       database: oompa_production
       hosts:
-        - <%= ENV['MONGODB_PORT_27017_TCP_ADDR'] || '127.0.0.1' %>:27017
+        - <%= ENV['MONGODB_PORT_27017_TCP_ADDR'] || 'localhost' %>:27017

@@ -1,15 +1,10 @@
-require_relative 'url_shortener'
-
 class TweetText
   def self.from_link link
-    url = UrlShortener.shorten link.url
-    comments_url = UrlShortener.shorten link.comments_url
+    # 23 is Twitter url character size
+    max_title_size = 280 - 1 - 23 - 1 - 1 - 23 - 2
+    ddd = link.title.size > max_title_size + 3 ? '...' : ''
 
-    # TODO fetch short url size from twitter api
-    max_title_size = 140 - 1 - 23 - 1 - 1 - 23 - 1
-    dot_dot_dot = link.title.size > max_title_size + 3 ? '...' : ''
-
-    text = link.title[0, (max_title_size - dot_dot_dot.size)]
-    "%s%s %s (%s)" % [text, dot_dot_dot, url, comments_url]
+    text = link.title[0, (max_title_size - ddd.size)]
+    "%s%s %s (%s)" % [text, ddd, link.url, link.comments_url]
   end
 end

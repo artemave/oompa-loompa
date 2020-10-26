@@ -1,7 +1,6 @@
-Bundler.require :default, :test
-
 ENV["RACK_ENV"] = 'test'
 require_relative '../lib/boot.rb'
+require 'rspec/its'
 require 'database_cleaner'
 
 RSpec.configure do |config|
