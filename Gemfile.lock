@@ -9,8 +9,8 @@ GEM
       minitest (~> 5.1)
       tzinfo (~> 1.1)
       zeitwerk (~> 2.2, >= 2.2.2)
-    addressable (2.7.0)
-      public_suffix (>= 2.0.2, < 5.0)
+    addressable (2.8.1)
+      public_suffix (>= 2.0.2, < 6.0)
     awesome_print (1.8.0)
     bson (4.11.0)
     buftok (0.2.0)
@@ -83,7 +83,7 @@ GEM
     omniauth-twitter (1.4.0)
       omniauth-oauth (~> 1.1)
       rack
-    public_suffix (4.0.6)
+    public_suffix (5.0.0)
     rack (2.2.3)
     rack-protection (2.1.0)
       rack
