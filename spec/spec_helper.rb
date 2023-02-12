@@ -1,12 +1,12 @@
 ENV["RACK_ENV"] = 'test'
 require_relative '../lib/boot.rb'
 require 'rspec/its'
-require 'database_cleaner'
+require 'database_cleaner-mongoid'
 
 RSpec.configure do |config|
   config.before(:suite) do
-    DatabaseCleaner.strategy = :truncation
-    DatabaseCleaner.clean_with(:truncation)
+    DatabaseCleaner.strategy = :deletion
+    DatabaseCleaner.clean
   end
 
   config.around(:each) do |example|

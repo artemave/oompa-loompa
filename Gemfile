@@ -1,6 +1,6 @@
 source "https://rubygems.org"
 
-gem 'ruby-hackernews'
+gem 'ruby-hackernews', github: 'artemave/ruby-hackernews'
 gem "mongoid"
 gem 'key_struct'
 gem 'rest-client'
@@ -17,5 +17,5 @@ group :test, :development do
   gem 'awesome_print'
   gem 'rspec'
   gem 'rspec-its'
-  gem 'database_cleaner'
+  gem 'database_cleaner-mongoid'
 end
