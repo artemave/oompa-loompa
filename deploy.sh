@@ -1,5 +1,7 @@
 #!/bin/bash
 
+set -x
+
 for container_id in `docker ps -q`; do
   container_name=$(docker inspect --format='{{.Name}}' $container_id)
 
