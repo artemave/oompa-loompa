@@ -19,20 +19,20 @@ if [[ ! $mongo_is_running ]]; then
 fi
 
 docker build -t oompa .
-docker build -t oompa-auth -f Dockerfile-auth .
+# docker build -t oompa-auth -f Dockerfile-auth .
 
 docker stop authorize-accounts || :
 docker rm authorize-accounts || :
-docker run -p '4567:4567' --restart unless-stopped -d --link mongodb:mongodb --name authorize-accounts \
-  -e RACK_ENV=production \
-  -e TWITTER_KEY=$TWITTER_API_KEY \
-  -e TWITTER_SECRET=$TWITTER_API_SECRET \
-  oompa-auth
+# docker run -p '4567:4567' --restart unless-stopped -d --link mongodb:mongodb --name authorize-accounts \
+#   -e RACK_ENV=production \
+#   -e TWITTER_API_KEY=$TWITTER_API_KEY \
+#   -e TWITTER_API_SECRET=$TWITTER_API_SECRET \
+#   oompa-auth
 
 docker stop tweet_sender || :
 docker rm tweet_sender || :
 docker run -d --restart unless-stopped --link mongodb:mongodb --name tweet_sender \
   -e RACK_ENV=production \
-  -e TWITTER_KEY=$TWITTER_API_KEY \
-  -e TWITTER_SECRET=$TWITTER_API_SECRET \
+  -e TWITTER_API_KEY=$TWITTER_API_KEY \
+  -e TWITTER_API_SECRET=$TWITTER_API_SECRET \
   oompa
